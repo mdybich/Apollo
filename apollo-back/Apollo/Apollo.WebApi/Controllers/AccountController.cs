@@ -1,4 +1,6 @@
 ﻿using Apollo.WebApi.Models;
+using Apollo.WebApi.Services;
+using Apollo.WebApi.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -13,25 +15,25 @@ namespace Apollo.WebApi.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private AuthRepository _repo = null;
+        private AuthService _service = null;
 
         public AccountController()
         {
-            _repo = new AuthRepository();
+            _service = new AuthService();
         }
 
         // POST api/Account/Register
         [HttpPost]
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(UserModel userModel)
+        public async Task<IHttpActionResult> Register(RegisterUserViewModel userModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await _repo.RegisterUser(userModel);
+            IdentityResult result = await _service.RegisterUser(userModel);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -47,7 +49,7 @@ namespace Apollo.WebApi.Controllers
         {
             if (disposing)
             {
-                _repo.Dispose();
+                _service.Dispose();
             }
 
             base.Dispose(disposing);
