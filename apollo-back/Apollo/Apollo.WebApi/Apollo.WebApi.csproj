@@ -204,6 +204,7 @@
     <Compile Include="AuthContext.cs" />
     <Compile Include="AuthRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Migrations\201610251847122_InitialCreate.cs" />
     <Compile Include="Migrations\201610251847122_InitialCreate.Designer.cs">
       <DependentUpon>201610251847122_InitialCreate.cs</DependentUpon>
@@ -212,13 +213,31 @@
     <Compile Include="Migrations\201610261610342_AddApplicationUser.Designer.cs">
       <DependentUpon>201610261610342_AddApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610290822218_AddApolloInitialStructure.cs" />
+    <Compile Include="Migrations\201610290822218_AddApolloInitialStructure.Designer.cs">
+      <DependentUpon>201610290822218_AddApolloInitialStructure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610290919592_ChangeNameTypeInArtistClass.cs" />
+    <Compile Include="Migrations\201610290919592_ChangeNameTypeInArtistClass.Designer.cs">
+      <DependentUpon>201610290919592_ChangeNameTypeInArtistClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610290932524_ChangeNameTypeInStyleClass.cs" />
+    <Compile Include="Migrations\201610290932524_ChangeNameTypeInStyleClass.Designer.cs">
+      <DependentUpon>201610290932524_ChangeNameTypeInStyleClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Album.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Artist.cs" />
+    <Compile Include="Models\Rating.cs" />
+    <Compile Include="Models\Style.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\SearchService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AlbumViewModel.cs" />
     <Compile Include="ViewModels\RegisterUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +262,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610261610342_AddApplicationUser.resx">
       <DependentUpon>201610261610342_AddApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610290822218_AddApolloInitialStructure.resx">
+      <DependentUpon>201610290822218_AddApolloInitialStructure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610290919592_ChangeNameTypeInArtistClass.resx">
+      <DependentUpon>201610290919592_ChangeNameTypeInArtistClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610290932524_ChangeNameTypeInStyleClass.resx">
+      <DependentUpon>201610290932524_ChangeNameTypeInStyleClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

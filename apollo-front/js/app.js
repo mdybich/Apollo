@@ -1,3 +1,3 @@
 (function() {
-  angular.module("app", ["ui.router", "app.controllers"]);
+  angular.module("app", ["ui.router", "LocalStorageModule", "app.controllers", "app.services"]);
 })();
