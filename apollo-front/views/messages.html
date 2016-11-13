@@ -3,7 +3,7 @@
   <button class="apollo-button apollo-button-main apollo-button-lg refresh-button" ng-click="vm.onRefreshButtonClick()"><i class="glyphicon glyphicon-refresh"></i></button>
   <button class="apollo-button apollo-button-main apollo-button-lg" ng-click="vm.onNewMessageButtonClick()">Nowa wiadomość</button>
 </div>
-<div class="messages-container">
+<div class="messages-container" ng-if="vm.messages && vm.messages.length > 0">
   <div class="messages-menu">
     <div ng-repeat="message in vm.messages" class="message-box" ng-class="{active: vm.isMessageActive($index)}" ng-click="vm.onMessageClick($index)">
       <div class="message-topic">
@@ -33,6 +33,9 @@
       {{vm.activeMessage.content}}
     </div>
   </div>
+</div>
+<div class="empty-messages-container" ng-if="!vm.messages || vm.messages.length === 0">
+  Nie posiadasz obecnie żadnych wiadomości...
 </div>
 <div class="confirmation-dialog" ng-show="vm.isConfirmationMessageVisible">
   Wysłano wiadomość!
