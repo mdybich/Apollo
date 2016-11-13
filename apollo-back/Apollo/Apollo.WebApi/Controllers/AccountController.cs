@@ -45,6 +45,15 @@ namespace Apollo.WebApi.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("UserInfo/{userName}")]
+        public async Task<IHttpActionResult> GetUserInfo(string userName)
+        {
+            var result = await _service.FindUserByName(userName);
+
+            return Ok(result);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

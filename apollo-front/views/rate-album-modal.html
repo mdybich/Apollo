@@ -1,0 +1,14 @@
+<div class="rate-modal-container">
+  <div>
+    Twoja ocena albumu
+  </div>
+  <div class="album-label">
+    {{vm.name}} - {{vm.artist}}
+  </div>
+  <div></div>
+  <div class="album-rating" uib-rating ng-model="vm.albumRating" max="10"></div>
+  <div class="buttons-container">
+    <button type="button" class="apollo-button apollo-button-cancel apollo-button-lg cancel-button" ng-click="vm.onCancelButtonClick()">Anuluj</button>
+    <button type="button" class="apollo-button apollo-button-main apollo-button-lg save-button" ng-click="vm.onSaveButtonClick()">Zapisz</button>
+  </div>
+</div>

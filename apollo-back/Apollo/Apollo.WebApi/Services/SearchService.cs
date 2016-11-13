@@ -23,10 +23,101 @@ namespace Apollo.WebApi.Services
                     Year = gr.Key.Year,
                     TotalRating = (float)gr.ToList().Average(st => st.Rate)
                 })
-                .OrderByDescending(a => a.TotalRating)
-                .Take(10);
+                .OrderByDescending(a => a.TotalRating);
 
             return albums;
+        }
+
+        public IEnumerable<AlbumViewModel> SearchAlbum(SearchAlbumViewModel searchData)
+        {
+            var albums =
+                _db.Albums
+                .Where(a => a.Name.Contains(searchData.SearchPhrase) || a.Artist.Name.Contains(searchData.SearchPhrase))
+                .Select(a => new AlbumViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    Artist = a.Artist.Name,
+                    Duration = a.Duration,
+                    Style = a.Style.Name,
+                    Year = a.Year,
+                    TotalRating = a.Ratings.Any() ? (float)a.Ratings.Average(r => r.Rate) : 0
+                });
+
+            return albums;
+        }
+
+        public IEnumerable<AlbumViewModel> AdvancedSearchAlbum(AdvancedSearchAlbumViewModel searchData)
+        {
+            var albums =
+                _db.Albums
+                .Where(
+                    a =>
+                    (searchData.StyleId != null ? a.StyleId == searchData.StyleId : true) &&
+                    (searchData.Name != null ? a.Name.Contains(searchData.Name) : true) &&
+                    (searchData.Artist != null ? a.Artist.Name.Contains(searchData.Artist) : true) &&
+                    (searchData.YearTo != null && searchData.YearFrom != null ? (a.Year >= searchData.YearFrom && a.Year <= searchData.YearTo) : true) &&
+                    (searchData.YearTo != null && searchData.YearFrom == null ? a.Year <= searchData.YearTo : true) &&
+                    (searchData.YearTo == null && searchData.YearFrom != null ? a.Year >= searchData.YearFrom : true) &&
+                    (searchData.RatingFrom != null && searchData.RatingTo != null ? (a.Ratings.Any() ? a.Ratings.Average(r => r.Rate) >= searchData.RatingFrom && a.Ratings.Average(r => r.Rate) <= searchData.RatingTo : false) : true) &&
+                    (searchData.RatingFrom != null && searchData.RatingTo == null ? (a.Ratings.Any() ? a.Ratings.Average(r => r.Rate) >= searchData.RatingFrom : false) : true) &&
+                    (searchData.RatingFrom == null && searchData.RatingTo != null ? (a.Ratings.Any() ? a.Ratings.Average(r => r.Rate) <= searchData.RatingTo : true) : true)
+                    )
+                .Select(a => new AlbumViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    Artist = a.Artist.Name,
+                    Duration = a.Duration,
+                    Style = a.Style.Name,
+                    Year = a.Year,
+                    TotalRating = a.Ratings.Any() ? (float)a.Ratings.Average(r => r.Rate) : 0
+                })
+                .OrderByDescending(a => a.TotalRating);
+
+            return albums;
+        }
+
+        public IEnumerable<AlbumViewModel> GetAlbumPropositions(string userId)
+        {
+            var albumsIdAlreadyRated =
+                _db.Ratings
+                .Where(r => r.UserId == userId)
+                .Select(r => r.AlbumId);
+
+            var users =
+                _db.Users
+                .Where(u => u.Id != userId && u.Ratings.Any(r => albumsIdAlreadyRated.Contains(r.AlbumId)))
+                .Select(u => u.Id)
+                .Distinct()
+                .ToList();
+
+            var albumsIdRatedByOtherUsers =
+                _db.Ratings
+                .Where(u => u.UserId != userId && users.Contains(u.UserId))
+                .Select(r => r.AlbumId)
+                .Distinct()
+                .ToList();
+
+            var albumsId = albumsIdRatedByOtherUsers.Except(albumsIdAlreadyRated);
+
+            var albums = 
+                _db.Albums
+                .Where(a => albumsId.Contains(a.Id))
+                .Select(a => new AlbumViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    Artist = a.Artist.Name,
+                    Duration = a.Duration,
+                    Style = a.Style.Name,
+                    Year = a.Year,
+                    TotalRating = a.Ratings.Any() ? (float)a.Ratings.Average(r => r.Rate) : 0
+                });
+
+
+            return albums;
+
         }
     }
 }

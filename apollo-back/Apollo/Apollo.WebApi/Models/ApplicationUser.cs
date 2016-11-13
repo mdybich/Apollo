@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace Apollo.WebApi.Models
 {
@@ -6,5 +7,9 @@ namespace Apollo.WebApi.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Message> SendMessages { get; set; }
+        public virtual ICollection<Message> ReceiveMessages { get; set; }
     }
 }

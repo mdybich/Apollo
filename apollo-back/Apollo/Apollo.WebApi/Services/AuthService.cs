@@ -39,5 +39,17 @@ namespace Apollo.WebApi.Services
 
             return user;
         }
+
+        public async Task<BasicUserViewModel> FindUserByName(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+
+            return new BasicUserViewModel()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Id = user.Id
+            };
+        }
     }
 }

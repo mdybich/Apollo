@@ -1,0 +1,39 @@
+<h1>Wiadomości</h1>
+<div class="message-buttons-container">
+  <button class="apollo-button apollo-button-main apollo-button-lg refresh-button" ng-click="vm.onRefreshButtonClick()"><i class="glyphicon glyphicon-refresh"></i></button>
+  <button class="apollo-button apollo-button-main apollo-button-lg" ng-click="vm.onNewMessageButtonClick()">Nowa wiadomość</button>
+</div>
+<div class="messages-container">
+  <div class="messages-menu">
+    <div ng-repeat="message in vm.messages" class="message-box" ng-class="{active: vm.isMessageActive($index)}" ng-click="vm.onMessageClick($index)">
+      <div class="message-topic">
+        {{message.topic}}
+      </div>
+      <div>
+        {{message.senderUser}}
+      </div>
+      <div>
+        {{message.sendingDate}}
+      </div>
+    </div>
+  </div>
+  <div class="messages-preview">
+    <div class="message-header">
+      <div>
+        {{vm.activeMessage.topic}}
+      </div>
+      <div class="message-date">
+        {{vm.activeMessage.sendingDate}}
+      </div>
+    </div>
+    <div class="message-author">
+      Od: {{vm.activeMessage.senderUser}}
+    </div>
+    <div class="message-content">
+      {{vm.activeMessage.content}}
+    </div>
+  </div>
+</div>
+<div class="confirmation-dialog" ng-show="vm.isConfirmationMessageVisible">
+  Wysłano wiadomość!
+</div>

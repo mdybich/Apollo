@@ -18,5 +18,8 @@ namespace Apollo.WebApi.Models
 
         public int StyleId { get; set; }
         public virtual Style Style { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

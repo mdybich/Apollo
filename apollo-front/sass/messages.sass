@@ -1,0 +1,56 @@
+.messages-container
+  display: flex
+  .messages-menu
+    width: 25%
+    margin-right: 10px
+    background-color: #FFFFFF
+    height: 80vh
+    border-radius: 3px
+    overflow-y: auto
+    .message-box
+      padding: 10px
+      border-bottom: 1px solid #e9ebee
+      cursor: pointer
+      &:hover, &.active
+        background-color: #D1DAE8
+      &:last-child
+        border-bottom: none
+      .message-topic
+        font-size: 18px
+        font-weight: bold
+  .messages-preview
+    width: 75%
+    background-color: #FFFFFF
+    padding: 10px
+    border-radius: 3px
+    .message-header
+      display: flex
+      font-size: 24px
+      font-weight: bold
+      .message-date
+        margin-left: auto
+    .message-author
+      font-size: 20px
+    .message-content
+      margin: 15px 0
+      font-size: 16px
+
+.message-buttons-container
+  margin: 15px 0
+  text-align: right
+  .refresh-button
+    width: 50px
+    margin-right: 10px
+
+.confirmation-dialog
+  background-color: #57B22E
+  color: #FFFFFF
+  position: fixed
+  left: calc(50% - 100px)
+  top: 10%
+  border-radius: 3px
+  padding: 5px
+  width: 200px
+  font-size: 16px
+  text-align: center
+  transition: all 1s

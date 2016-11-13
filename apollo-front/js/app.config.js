@@ -12,8 +12,7 @@
         controller: "CommonController",
         controllerAs: "vm",
         resolve: {
-          test: function () {
-          }
+          authContext: getAuthContext
         }
       })
       .state(states.HOME, {
@@ -22,12 +21,60 @@
         controller: "HomeController",
         controllerAs: "vm",
         parent: states.COMMON
+      })
+      .state(states.LOGIN, {
+        url: "/login",
+        templateUrl: "../views/login.html",
+        controller: "LoginController",
+        controllerAs: "vm",
+        parent: states.COMMON
+      })
+      .state(states.REGISTER, {
+        url: "/register",
+        templateUrl: "../views/register.html",
+        controller: "RegisterController",
+        controllerAs: "vm",
+        parent: states.COMMON
+      })
+      .state(states.COMMENTS, {
+        url: "/comments/{id}",
+        templateUrl: "../views/comments.html",
+        controller: "CommentsController",
+        controllerAs: "vm",
+        parent: states.COMMON,
+        resolve: {
+          commentsResponse: getComments
+        }
+      })
+      .state(states.MESSAGES, {
+        url: "/messages",
+        templateUrl: "../views/messages.html",
+        controller: "MessagesController",
+        controllerAs: "vm",
+        parent: states.COMMON,
+        resolve: {
+          messagesResponse: getMessages
+        }
       });
 
     $urlRouterProvider.otherwise("/home");
 
     $httpProvider.interceptors.push('authInterceptorService');
     localStorageServiceProvider.setPrefix('Apollo');
+  }
+
+  function getAuthContext(authService) {
+    return authService.getAuthContext();
+  }
+  
+  function getComments($stateParams, commentsService) {
+    return commentsService.getComments($stateParams.id);
+  }
+
+  function getMessages(messagesService, authContext) {
+    if (authContext.isAuth) {
+      return messagesService.getMessages(authContext.userId);
+    }
   }
 
   function runBlock(authService) {

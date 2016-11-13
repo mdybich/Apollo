@@ -1,0 +1,23 @@
+<div class="message-modal">
+  <div class="message-modal-header">
+    Nowa wiadomość
+  </div>
+  <div class="message-modal-row">
+    <div class="message-label">
+      Odbiorca:
+    </div>
+    <select class="form-control message-input" ng-model="vm.selectedReceiver" ng-options="receiver.id as receiver.name for receiver in vm.receivers"></select>
+  </div>
+  <div class="message-modal-row">
+    <div class="message-label">
+      Temat:
+    </div>
+    <input type="text" class="form-control message-input" ng-model="vm.topic">
+  </div>
+  <div class="content-label">Treść:</div>
+  <textarea rows="8" class="form-control content-text-area" ng-model="vm.content"></textarea>
+  <div class="buttons-container">
+    <button class="apollo-button apollo-button-lg apollo-button-cancel" ng-click="vm.onCancelButtonClick()">Anuluj</button>
+    <button class="apollo-button apollo-button-lg apollo-button-main" ng-click="vm.onSaveButtonClick()">Wyślij</button>
+  </div>
+</div>

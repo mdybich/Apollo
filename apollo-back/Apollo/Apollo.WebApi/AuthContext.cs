@@ -17,5 +17,26 @@ namespace Apollo.WebApi
         public DbSet<Style> Styles { get; set; }
         public DbSet<Album> Albums { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Message> Messages { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<Message>()
+                .HasRequired(m => m.SenderUser)
+                .WithMany(u => u.SendMessages)
+                .HasForeignKey(m => m.SenderUserId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder
+               .Entity<Message>()
+               .HasRequired(m => m.ReceiverUser)
+               .WithMany(u => u.ReceiveMessages)
+               .HasForeignKey(m => m.ReceiverUserId)
+               .WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

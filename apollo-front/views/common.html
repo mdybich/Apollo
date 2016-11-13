@@ -1,9 +1,12 @@
 <nav class="apollo-navbar">
   <ul class="container nav-list">
     <li class="item"><a class="link main-link">Apollo</a></li>
-    <li class="item"><a class="link" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.HOME)}">Albumy</a></li>
-    <li class="item right-item"><a class="link">Rejestracja</a></li>
-    <li class="item right-item"><a class="link">Logowanie</a></li>
+    <li class="item"><a class="link" ui-sref="home" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.HOME)}">Albumy</a></li>
+    <li class="item right-item" ng-if="!vm.isAuth"><a ui-sref="register" class="link" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.REGISTER)}">Rejestracja</a></li>
+    <li class="item right-item" ng-if="!vm.isAuth"><a ui-sref="login" class="link" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.LOGIN)}">Logowanie</a></li>
+    <li class="item right-item" ng-if="vm.isAuth" ng-click="vm.onLogoutButtonClick()"><a class="link">Wyloguj</a></li>
+    <li class="item right-item" ng-if="vm.isAuth"><a class="link" ui-sref="messages" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.MESSAGES)}">Wiadomości</a></li>
+    <li class="item right-item" ng-if="vm.isAuth"><div class="link read-only-link">Zalogowany jako: {{vm.firstName}} {{vm.lastName}}</div></li>
   </ul>
 </nav>
 <div class="container"><ui-view></ui-view></div>

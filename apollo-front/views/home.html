@@ -1,7 +1,61 @@
 <h1 class="home-header">Apollo - Twój muzyczny przewodnik</h1>
 <div class="search-container">
-  <input type="text" class="form-control input-lg" placeholder="Wpisz nazwę albumu lub wykonawcy">
+  <div ng-show="!vm.isAdvancedSearchVisible">
+    <input type="text" class="form-control input-lg" placeholder="Wpisz nazwę albumu lub wykonawcy" ng-model="vm.searchText" ng-model-options="{debounce: 700}">
+    <div class="advanced-label" ng-click="vm.changeSearchView()">Wyszukiwanie zaawansowane</div>
+  </div>
+  <div ng-show="vm.isAdvancedSearchVisible">
+    <div class="advanced-search-row">
+      <label class="search-label" for="style-search">Styl:</label>
+      <select id="style-search" class="form-control search-input" ng-model="vm.advancedSearch.styleId" ng-options="style.id as style.name for style in vm.styles"></select>
+      <label class="search-label">Nazwa:</label>
+      <input type="text" class="form-control search-input" ng-model="vm.advancedSearch.name">
+      <label class="search-label">Artysta:</label>
+      <input type="text" class="form-control search-input" ng-model="vm.advancedSearch.artist">
+    </div>
+    <div class="advanced-search-row">
+      <label class="search-label">Rok od:</label>
+      <input type="number" class="form-control search-input search-input-sm" ng-model="vm.advancedSearch.yearFrom">
+      <label class="search-label">do:</label>
+      <input type="number" class="form-control search-input search-input-sm" ng-model="vm.advancedSearch.yearTo">
+      <label class="search-label">Ocena od:</label>
+      <input type="number" class="form-control search-input search-input-sm" min="1" max="10" ng-model="vm.advancedSearch.ratingFrom">
+      <label class="search-label">do:</label>
+      <input type="number" class="form-control search-input search-input-sm" min="1" max="10" ng-model="vm.advancedSearch.ratingTo">
+      <button type="button" class="apollo-button apollo-button-main apollo-button-lg search-button" ng-click="vm.onAdvancedSearchButtonClick()">Szukaj</button>
+    </div>
+    <div class="advanced-label" ng-click="vm.changeSearchView()">Proste wyszukiwanie</div>
+  </div>
+  <div class="order-container">
+    <select class="form-control order-select" ng-model="vm.selectedOrderOption" ng-options="orderOption.type as orderOption.label for orderOption in vm.orderOptions"></select>
+    <div class="order-label">Sortuj po:</div>
+  </div>
 </div>
-<div class="loader-container">
+<div ng-if="!vm.isLoading && vm.albums.length > 0" class="albums-container">
+  <div ng-repeat="album in vm.albums | orderBy:vm.selectedOrderOption" class="album-tile">
+    <div class="album-tile-header">
+      {{album.name}}
+    </div>
+    <div class="album-tile-subheader">
+      {{album.artist}}
+    </div>
+    <div class="album-tile-body">
+      <div>Styl: {{album.style}}</div>
+      <div>Rok: {{album.year}}</div>
+      <div>Czas trwania: {{album.duration}} min</div>
+      <div class="album-rating" uib-rating ng-model="album.totalRating" max="10" read-only="true"></div>
+      <div class="rate-button-container" ng-if="vm.isUserAuth">
+        <button class="apollo-button apollo-button-max apollo-button-main" type="button" ng-click="vm.onRateButtonClick(album.id, album.artist, album.name)">Oceń</button>
+      </div>
+      <div class="rate-button-container">
+        <a class="apollo-button apollo-button-max apollo-button-main comment-link" ui-sref="comments({id: album.id})">Komentarze</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div ng-if="vm.isLoading" class="loader-container">
   <img src="../img/loader.gif">
+</div>
+<div ng-if="!vm.isLoading && vm.albums.length === 0" class="empty-result-container">
+  Niczego nie znalazłem...
 </div>
