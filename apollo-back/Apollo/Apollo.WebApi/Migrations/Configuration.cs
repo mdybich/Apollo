@@ -1,5 +1,7 @@
 namespace Apollo.WebApi.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
     using System;
     using System.Data.Entity;
@@ -21,6 +23,7 @@ namespace Apollo.WebApi.Migrations
             SeedAlbums(context);
             SeedRatings(context);
             SeedComments(context);
+            SeedRoles(context);
         }
 
         private void SeedArtists(Apollo.WebApi.AuthContext context)
@@ -124,6 +127,37 @@ namespace Apollo.WebApi.Migrations
             };
 
             context.Set<Comment>().AddOrUpdate(comments);
+        }
+
+        private void SeedRoles(Apollo.WebApi.AuthContext context)
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            if (!roleManager.Roles.Any())
+            {
+                roleManager.Create(new IdentityRole("Admin"));
+                roleManager.Create(new IdentityRole("User"));
+            }
+
+            var users = context.Users.ToList();
+
+            foreach (var user in users)
+            {
+                if (!user.Roles.Any())
+                {
+                    if (user.UserName == "jkowalski" || user.UserName == "jsnow")
+                    {
+                        userManager.AddToRoles(user.Id, new string[] { "Admin", "User" });
+                    } else
+                    {
+                        userManager.AddToRole(user.Id, "User");
+                    }
+                }
+            }
+
+
+
         }
     }
 }

@@ -205,6 +205,7 @@
     <Compile Include="AuthRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -237,6 +238,10 @@
     <Compile Include="Migrations\201611130821187_AddMessagesTable.Designer.cs">
       <DependentUpon>201611130821187_AddMessagesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611151946028_AddIsDeletedFlagToAlbum.cs" />
+    <Compile Include="Migrations\201611151946028_AddIsDeletedFlagToAlbum.Designer.cs">
+      <DependentUpon>201611151946028_AddIsDeletedFlagToAlbum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -250,6 +255,7 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CommentService.cs" />
+    <Compile Include="Services\ManagementService.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\RatingService.cs" />
     <Compile Include="Services\SearchService.cs" />
@@ -257,10 +263,13 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AdvancedSearchAlbumViewModel.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
+    <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\BasicUserViewModel.cs" />
     <Compile Include="ViewModels\CommentListViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\ManagementAlbumViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\NewAlbumViewModel.cs" />
     <Compile Include="ViewModels\NewCommentViewModel.cs" />
     <Compile Include="ViewModels\NewMessageViewModel.cs" />
     <Compile Include="ViewModels\RateViewModel.cs" />
@@ -307,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611130821187_AddMessagesTable.resx">
       <DependentUpon>201611130821187_AddMessagesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611151946028_AddIsDeletedFlagToAlbum.resx">
+      <DependentUpon>201611151946028_AddIsDeletedFlagToAlbum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
   <ul class="container nav-list">
     <li class="item"><a class="link main-link">Apollo</a></li>
     <li class="item"><a class="link" ui-sref="home" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.HOME)}">Albumy</a></li>
+    <li class="item" ng-if="vm.isAdminSectionVisible()"><a class="link" ui-sref="management" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.MANAGEMENT)}">Zarządzanie</a></li>
     <li class="item right-item" ng-if="!vm.isAuth"><a ui-sref="register" class="link" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.REGISTER)}">Rejestracja</a></li>
     <li class="item right-item" ng-if="!vm.isAuth"><a ui-sref="login" class="link" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.LOGIN)}">Logowanie</a></li>
     <li class="item right-item" ng-if="vm.isAuth" ng-click="vm.onLogoutButtonClick()"><a class="link">Wyloguj</a></li>

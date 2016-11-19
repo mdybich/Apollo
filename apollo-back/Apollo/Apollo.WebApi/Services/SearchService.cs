@@ -12,6 +12,7 @@ namespace Apollo.WebApi.Services
         {
             var albums =
                 _db.Ratings
+                .Where(r => r.Album.IsDeleted == false)
                 .GroupBy(r => r.Album)
                 .Select(gr => new AlbumViewModel()
                 {
@@ -32,7 +33,7 @@ namespace Apollo.WebApi.Services
         {
             var albums =
                 _db.Albums
-                .Where(a => a.Name.Contains(searchData.SearchPhrase) || a.Artist.Name.Contains(searchData.SearchPhrase))
+                .Where(a => (a.Name.Contains(searchData.SearchPhrase) || a.Artist.Name.Contains(searchData.SearchPhrase)) && a.IsDeleted == false)
                 .Select(a => new AlbumViewModel()
                 {
                     Id = a.Id,
@@ -53,6 +54,7 @@ namespace Apollo.WebApi.Services
                 _db.Albums
                 .Where(
                     a =>
+                    (a.IsDeleted == false) &&
                     (searchData.StyleId != null ? a.StyleId == searchData.StyleId : true) &&
                     (searchData.Name != null ? a.Name.Contains(searchData.Name) : true) &&
                     (searchData.Artist != null ? a.Artist.Name.Contains(searchData.Artist) : true) &&
@@ -103,7 +105,7 @@ namespace Apollo.WebApi.Services
 
             var albums = 
                 _db.Albums
-                .Where(a => albumsId.Contains(a.Id))
+                .Where(a => albumsId.Contains(a.Id) && a.IsDeleted == false)
                 .Select(a => new AlbumViewModel()
                 {
                     Id = a.Id,

@@ -12,6 +12,7 @@ namespace Apollo.WebApi.Models
         public int Year { get; set; }
         public DateTime DateAdded { get; set; }
         public float Duration { get; set; }
+        public bool IsDeleted { get; set; }
 
         public int ArtistId { get; set; }
         public virtual Artist Artist { get; set; }
