@@ -1,0 +1,18 @@
+<h1>Zarządzanie albumami</h1>
+<div class="message-buttons-container">
+  <button class="apollo-button apollo-button-main apollo-button-lg" ng-click="vm.onAddButtonClick()">Dodaj</button>
+</div>
+<table class="management-table">
+  <tr>
+    <th>Nazwa</th>
+    <th>Artysta</th>
+    <th>Data dodania</th>
+    <th></th>
+  </tr>
+  <tr ng-repeat="album in vm.albums">
+    <td>{{album.name}}</td>
+    <td>{{album.artist}}</td>
+    <td>{{album.dateAdded}}</td>
+    <td class="delete-column"><button class="apollo-button apollo-button-md apollo-button-error" ng-click="vm.onDeleteButtonClick(album.id, album.name, album.artist)"><i class="glyphicon glyphicon-trash"></i></button></td>
+  </tr>
+</table>

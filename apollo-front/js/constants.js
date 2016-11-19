@@ -6,7 +6,8 @@
       LOGIN: "login",
       REGISTER: "register",
       COMMENTS: "comments",
-      MESSAGES: "messages"
+      MESSAGES: "messages",
+      MANAGEMENT: "management"
     })
     .constant("apiConfig", {
       baseApiUrl: "http://localhost:47131/"

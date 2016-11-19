@@ -1,0 +1,8 @@
+<div class="delete-modal">
+  <div class="delete-label">Czy na pewno chcesz usunąć album</div>
+  <div class="delete-label mb20">{{vm.name}} - {{vm.artist}}?</div>
+  <div class="button-container">
+    <button class="apollo-button apollo-button-lg apollo-button-cancel" ng-click="vm.onCancelButtonClick()">Anuluj</button>
+    <button class="apollo-button apollo-button-lg apollo-button-error" ng-click="vm.onDeleteButtonClick()">Usuń</button>
+  </div>
+</div>

@@ -12,6 +12,7 @@
     vm.firstName = "";
     vm.lastName = "";
     vm.onLogoutButtonClick = onLogoutButtonClick;
+    vm.isAdminSectionVisible = isAdminSectionVisible;
 
     function isMenuActiveElement(stateName) {
       return $state.current.name === stateName;
@@ -36,6 +37,18 @@
       vm.isAuth = authContext.isAuth;
       vm.firstName = authContext.userFirstName;
       vm.lastName = authContext.userLastName;
+    }
+
+    function isAdminSectionVisible() {
+      var roles = authContext.userRoles;
+
+      for (var i = 0; i < roles.length; i++) {
+        if (roles[i] === "Admin") {
+          return true;
+        }
+      }
+
+      return false;
     }
 
     activate();

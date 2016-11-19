@@ -9,7 +9,8 @@
       userName: "",
       userFirstName: "",
       userLastName: "",
-      userId: ""
+      userId: "",
+      userRoles: []
     };
 
     var authService = {
@@ -42,13 +43,15 @@
                   userName: userName ,
                   userFirstName: response.data.firstName,
                   userLastName: response.data.lastName,
-                  userId: response.data.id
+                  userId: response.data.id,
+                  userRoles: response.data.roles
                 });
               authContext.isAuth = true;
               authContext.userName = userName;
               authContext.userFirstName = response.data.firstName;
               authContext.userLastName = response.data.lastName;
               authContext.userId = response.data.id;
+              authContext.userRoles = response.data.roles;
               deferred.resolve(response);
             }, function (error) {
               deferred.reject(error);
@@ -83,6 +86,7 @@
       authContext.userFirstName = "";
       authContext.userLastName = "";
       authContext.userId = "";
+      authContext.userRoles = [];
     }
 
     function fillAuthData() {
@@ -93,6 +97,7 @@
         authContext.userFirstName = authData.userFirstName;
         authContext.userLastName = authData.userLastName;
         authContext.userId = authData.userId;
+        authContext.userRoles = authData.userRoles;
       }
     }
 

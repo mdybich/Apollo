@@ -30,6 +30,12 @@ namespace Apollo.WebApi.Services
 
             var result = await _userManager.CreateAsync(userToDb, user.Password);
 
+            if (result.Succeeded)
+            {
+                var currentUser = _userManager.FindByName(user.UserName);
+                _userManager.AddToRole(currentUser.Id, "User");
+            }
+
             return result;
         }
 
@@ -44,11 +50,14 @@ namespace Apollo.WebApi.Services
         {
             var user = await _userManager.FindByNameAsync(userName);
 
+            var roles = await _userManager.GetRolesAsync(user.Id);
+
             return new BasicUserViewModel()
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Id = user.Id
+                Id = user.Id,
+                Roles = roles.ToArray()
             };
         }
     }

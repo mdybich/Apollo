@@ -55,6 +55,16 @@
         resolve: {
           messagesResponse: getMessages
         }
+      })
+      .state(states.MANAGEMENT, {
+        url: "/management",
+        templateUrl: "../views/management.html",
+        controller: "ManagementController",
+        controllerAs: "vm",
+        parent: states.COMMON,
+        resolve: {
+          managementAlbumsResponse: getManagementAlbums
+        }
       });
 
     $urlRouterProvider.otherwise("/home");
@@ -74,7 +84,16 @@
   function getMessages(messagesService, authContext) {
     if (authContext.isAuth) {
       return messagesService.getMessages(authContext.userId);
+    } else {
+      throw "error";
     }
+  }
+
+  function getManagementAlbums(managementService, authContext) {
+    if (authContext.isAuth) {
+      return managementService.getAlbums();
+    }
+    throw "error";
   }
 
   function runBlock(authService) {
