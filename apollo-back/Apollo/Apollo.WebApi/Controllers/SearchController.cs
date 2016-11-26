@@ -52,10 +52,10 @@ namespace Apollo.WebApi.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("propositions/{userId}")]
-        public IHttpActionResult GetAlbumPropositions(string userId)
+        [Route("recommendations/{userId}")]
+        public IHttpActionResult GetAlbumRecommendations(string userId)
         {
-            var albums = _service.GetAlbumPropositions(userId);
+            var albums = _service.GetAlbumRecommendations(userId);
 
             return Ok(albums);
         }

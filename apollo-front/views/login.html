@@ -1,14 +1,22 @@
 <h1>Logowanie</h1>
 <div class="login-container">
-  <div class="login-row">
-    <div class="login-label">Nazwa użytkownika:</div>
-    <input type="text" class="form-control login-input" ng-model="vm.userName">
+  <div class="internal-login">
+    <div class="login-row">
+      <div class="login-label">Nazwa użytkownika:</div>
+      <input type="text" class="form-control login-input" ng-model="vm.userName">
+    </div>
+    <div class="login-row">
+      <div class="login-label">Hasło:</div>
+      <input type="password" class="form-control login-input" ng-model="vm.password">
+    </div>
+    <div>
+      <button type="button" class="apollo-button apollo-button-lg apollo-button-main" ng-click="vm.onLoginButtonClick()">Zaloguj</button>
+    </div>
   </div>
-  <div class="login-row">
-    <div class="login-label">Hasło:</div>
-    <input type="password" class="form-control login-input" ng-model="vm.password">
+  <div class="external-login">
+    <div class="button-wrapper">
+      <button type="button" class="apollo-button apollo-button-xlg apollo-button-main" ng-click="vm.onExternalLoginButtonClick('Facebook')">Zaloguj się przez Facebook</button>
+    </div>
   </div>
-</div>
-<div>
-  <button type="button" class="apollo-button apollo-button-lg apollo-button-main" ng-click="vm.onLoginButtonClick()">Zaloguj</button>
+
 </div>
