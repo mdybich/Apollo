@@ -80,7 +80,7 @@ namespace Apollo.WebApi.Services
             return albums;
         }
 
-        public IEnumerable<AlbumViewModel> GetAlbumPropositions(string userId)
+        public IEnumerable<AlbumViewModel> GetAlbumRecommendations(string userId)
         {
             var albumsIdAlreadyRated =
                 _db.Ratings

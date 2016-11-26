@@ -65,6 +65,23 @@
         resolve: {
           managementAlbumsResponse: getManagementAlbums
         }
+      })
+      .state(states.RECOMMENDATIONS, {
+        url: "/recommendations",
+        templateUrl: "../views/recommendations.html",
+        controller: "RecommendationsController",
+        controllerAs: "vm",
+        parent: states.COMMON,
+        resolve: {
+          recommendationsResponse: getRecommendations
+        }
+      })
+      .state(states.ASSOCIATE, {
+        url: "/associate",
+        templateUrl: "../views/associate.html",
+        controller: "AssociateController",
+        controllerAs: "vm",
+        parent: states.COMMON
       });
 
     $urlRouterProvider.otherwise("/home");
@@ -92,6 +109,13 @@
   function getManagementAlbums(managementService, authContext) {
     if (authContext.isAuth) {
       return managementService.getAlbums();
+    }
+    throw "error";
+  }
+
+  function getRecommendations(searchService, authContext) {
+    if (authContext.isAuth) {
+      return searchService.getRecommendations(authContext.userId);
     }
     throw "error";
   }

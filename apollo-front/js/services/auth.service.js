@@ -13,13 +13,23 @@
       userRoles: []
     };
 
+    var externalAuthData = {
+      provider: "",
+      userName: "",
+      externalAccessToken: ""
+    };
+
     var authService = {
       login: login,
       register: register,
       logOut: logOut,
       fillAuthData: fillAuthData,
       getAuthContext: getAuthContext,
-      getBasicUserInfo: getBasicUserInfo
+      getBasicUserInfo: getBasicUserInfo,
+      registerExternal: registerExternal,
+      getExternalAuthData: getExternalAuthData,
+      setExternalAuthData: setExternalAuthData,
+      obtainAccessToken: obtainAccessToken
     };
 
     return authService;
@@ -109,6 +119,76 @@
       var url = apiConfig.baseApiUrl + "api/account/userinfo/" + userName;
 
       return $http.get(url);
+    }
+    
+    function registerExternal(registerExternalData) {
+      var deferred = $q.defer();
+
+      var url = apiConfig.baseApiUrl + "api/account/registerexternal";
+
+      $http.post(url, registerExternalData)
+        .then(function(response) {
+          authContext.isAuth = true;
+          authContext.userName = response.userName;
+        })
+        .catch(function(error) {
+          logOut();
+          deferred.reject(error);
+        });
+
+      return deferred.promise;
+    }
+
+    function setExternalAuthData(provider, userName, externalAccessToken) {
+      externalAuthData.provider = provider;
+      externalAuthData.userName = userName;
+      externalAuthData.externalAccessToken = externalAccessToken;
+    }
+
+    function getExternalAuthData() {
+      return externalAuthData;
+    }
+    
+    function obtainAccessToken(externalData) {
+      var deferred = $q.defer();
+
+      var url = apiConfig.baseApiUrl + "api/account/ObtainLocalAccessToken";
+
+      var params = {
+        provider: externalData.provider,
+        externalAccessToken: externalData.externalAccessToken
+      };
+
+      $http.get(url, { params: params })
+        .then(function (response) {
+          var token = response.data.access_token;
+          var userName = response.data.userName;
+
+          getBasicUserInfo(userName)
+            .then(function(response) {
+              localStorageService.set("authorizationData",
+                {
+                  token: token,
+                  userName: userName,
+                  userFirstName: response.data.firstName,
+                  userLastName: response.data.lastName,
+                  userId: response.data.id,
+                  userRoles: response.data.roles
+                });
+              authContext.isAuth = true;
+              authContext.userName = userName;
+              authContext.userFirstName = response.data.firstName;
+              authContext.userLastName = response.data.lastName;
+              authContext.userId = response.data.id;
+              authContext.userRoles = response.data.roles;
+              deferred.resolve(response);
+            });
+        })
+        .catch(function (error) {
+          deferred.reject(error);
+        });
+
+      return deferred.promise;
     }
   }
 

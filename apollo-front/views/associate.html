@@ -1,0 +1,12 @@
+<div class="associate-label">
+  Witaj w Apollo, {{vm.firstName}}! Zostałeś poprawnie zalogowany przy wykorzystaniu konta {{vm.provider}}.
+</div>
+<div class="associate-label">
+  Aby dokończyć rejestrację podaj swoją nazwę użytkownika w systemie:
+</div>
+<div class="associate-input-wrapper">
+  <input type="text" class="form-control login-input" ng-model="vm.userName" placeholder="Nazwa użytkownika">
+</div>
+<div class="associate-input-wrapper">
+  <button class="apollo-button apollo-button-main apollo-button-lg" ng-click="vm.onExternalRegisterButtonClick()">Rejestruj</button>
+</div>

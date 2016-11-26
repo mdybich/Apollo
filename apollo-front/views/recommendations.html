@@ -1,0 +1,23 @@
+<h1>Specjalnie dopasowane albumy dla Ciebie</h1>
+<div ng-if="!vm.isLoading && vm.albums.length > 0" class="albums-container">
+  <div ng-repeat="album in vm.albums" class="album-tile">
+    <div class="album-tile-header">
+      {{album.name}}
+    </div>
+    <div class="album-tile-subheader">
+      {{album.artist}}
+    </div>
+    <div class="album-tile-body">
+      <div>Styl: {{album.style}}</div>
+      <div>Rok: {{album.year}}</div>
+      <div>Czas trwania: {{album.duration}} min</div>
+      <div class="album-rating" uib-rating ng-model="album.totalRating" max="10" read-only="true"></div>
+      <div class="rate-button-container" ng-if="vm.isUserAuth">
+        <button class="apollo-button apollo-button-max apollo-button-main" type="button">Oceń</button>
+      </div>
+      <div class="rate-button-container">
+        <a class="apollo-button apollo-button-max apollo-button-main comment-link" ui-sref="comments({id: album.id})">Komentarze</a>
+      </div>
+    </div>
+  </div>
+</div>

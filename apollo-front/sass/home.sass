@@ -57,9 +57,23 @@
   .album-tile
     margin-right: 10px
     margin-bottom: 10px
-    width: calc(25% - (30px /4))
-    &:nth-child(4n)
+    width: calc(50% - (5px))
+    &:nth-child(2n)
       margin-right: 0
+    @media (min-width: 992px)
+      width: calc(33% - 4px)
+      &:nth-child(2n)
+        margin-right: 10px
+      &:nth-child(3n)
+        margin-right: 0
+    @media (min-width: 1200px)
+      width: calc(25% - (30px /4))
+      &:nth-child(2n)
+        margin-right: 10px
+      &:nth-child(3n)
+        margin-right: 10px
+      &:nth-child(4n)
+        margin-right: 0
     .album-tile-header
       @include album-header
       padding-top: 10px

@@ -60,5 +60,32 @@ namespace Apollo.WebApi.Services
                 Roles = roles.ToArray()
             };
         }
+
+        public async Task<ApplicationUser> FindAsync(UserLoginInfo loginInfo)
+        {
+            var user = await _userManager.FindAsync(loginInfo);
+
+            return user;
+        }
+
+        public async Task<IdentityResult> CreateAsync(ApplicationUser user)
+        {
+            var result = await _userManager.CreateAsync(user);
+
+            if (result.Succeeded)
+            {
+                var currentUser = _userManager.FindByName(user.UserName);
+                _userManager.AddToRole(currentUser.Id, "User");
+            }
+
+            return result;
+        }
+
+        public async Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo login)
+        {
+            var result = await _userManager.AddLoginAsync(userId, login);
+
+            return result;
+        }
     }
 }

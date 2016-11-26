@@ -7,7 +7,8 @@
     var searchService = {
       getTopAlbums: getTopAlbums,
       search: search,
-      advancedSearch: advancedSearch
+      advancedSearch: advancedSearch,
+      getRecommendations: getRecommendations
     };
 
     return searchService;
@@ -30,6 +31,12 @@
       var queryString = $httpParamSerializer(searchModel);
 
       return $http.get(url + queryString);
+    }
+
+    function getRecommendations(userId) {
+      var url = apiConfig.baseApiUrl + "api/search/recommendations/" + userId;
+
+      return $http.get(url);
     }
   }
 })();
