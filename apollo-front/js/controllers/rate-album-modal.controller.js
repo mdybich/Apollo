@@ -7,17 +7,24 @@
     vm.albumRating = 0;
     vm.artist = "";
     vm.name = "";
+    vm.isAlreadySaveClicked = false;
+
     vm.onSaveButtonClick = onSaveButtonClick;
     vm.onCancelButtonClick = onCancelButtonClick;
+    vm.isCorrectRating = isCorrectRating;
 
     function onSaveButtonClick() {
-      rateService
-        .rateAlbum(userId, albumData.id, vm.albumRating)
-        .then(function () {
-          $uibModalInstance.close();
-        }, function () {
+      vm.isAlreadySaveClicked = true;
 
-        });
+      if(isCorrectRating()) {
+        rateService
+          .rateAlbum(userId, albumData.id, vm.albumRating)
+          .then(function () {
+            $uibModalInstance.close();
+          }, function () {
+
+          });
+      }
     }
     
     function onCancelButtonClick() {
@@ -28,6 +35,10 @@
       vm.artist = albumData.name;
       vm.name = albumData.artist;
       vm.albumRating = currentRating.data;
+    }
+
+    function isCorrectRating() {
+      return vm.albumRating && vm.albumRating > 0 && vm.albumRating <= 10;
     }
 
     activate()

@@ -9,6 +9,9 @@
       <div class="login-label">Hasło:</div>
       <input type="password" class="form-control login-input" ng-model="vm.password">
     </div>
+    <div class="error-login-container error-label" ng-show="!!vm.errorMessage">
+      {{vm.errorMessage}}
+    </div>
     <div>
       <button type="button" class="apollo-button apollo-button-lg apollo-button-main" ng-click="vm.onLoginButtonClick()">Zaloguj</button>
     </div>

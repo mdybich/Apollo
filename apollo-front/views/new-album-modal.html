@@ -6,19 +6,26 @@
     <div class="new-album-label">Nazwa:</div>
     <input type="text" class="form-control" ng-model="vm.name">
   </div>
+  <div class="error-management-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isNameValid()">Wprowadź nazwę albumu!</div>
   <div class="new-album-row">
     <div class="new-album-label">Artysta:</div>
     <input type="text" ng-model="vm.selectedArtist" class="form-control" uib-typeahead="artist as artist.name for artist in vm.artists | filter:$viewValue | limitTo:8">
   </div>
+  <div class="error-management-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isArtistValid()">Wprowadź artystę!</div>
   <div class="new-album-row">
     <div class="new-album-label">Styl:</div>
     <select class="form-control" ng-model="vm.selectedStyleId" ng-options="style.id as style.name for style in vm.styles"></select>
   </div>
+  <div class="error-management-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isStyleValid()">Wprowadź styl!</div>
   <div class="new-album-row">
     <div class="new-album-label">Rok:</div>
     <input type="number" class="form-control small-input mr10" ng-model="vm.year">
     <div class="new-album-label">Czas trwania:</div>
     <input type="number" class="form-control small-input" ng-model="vm.duration">
+  </div>
+  <div class="error-management-row-container error-label" ng-show="vm.isAlreadySaveClicked && (!vm.isYearValid() || !vm.isDurationValid())">
+    <div class="row-error year-error" ng-show="!vm.isYearValid()">Wprowadź rok!</div>
+    <div class="row-error duration-error" ng-show="!vm.isDurationValid()">Wprowadź czas!</div>
   </div>
   <div class="button-container mt30">
     <button class="apollo-button apollo-button-lg apollo-button-cancel" ng-click="vm.onCancelButtonClick()">Anuluj</button>

@@ -1,25 +1,31 @@
 <h1>Rejestracja</h1>
-<div class="login-container" ng-show="!vm.isSuccessRegistered">
+<div class="register-container" ng-show="!vm.isSuccessRegistered">
   <div class="login-row">
     <div class="login-label">Nazwa użytkownika:</div>
     <input type="text" class="form-control login-input" ng-model="vm.userName">
   </div>
+  <div class="register-error-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isUserNameValid()">Nazwa użytkownika jest wymagana!</div>
   <div class="login-row">
     <div class="login-label">Imię:</div>
     <input type="text" class="form-control login-input" ng-model="vm.firstName">
   </div>
+  <div class="register-error-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isFirstNameValid()">Imię jest wymagane!</div>
   <div class="login-row">
     <div class="login-label">Nazwisko:</div>
     <input type="text" class="form-control login-input" ng-model="vm.lastName">
   </div>
+  <div class="register-error-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isLastNameValid()">Nazwisko jest wymagane!</div>
   <div class="login-row">
     <div class="login-label">Hasło:</div>
     <input type="password" class="form-control login-input" ng-model="vm.password">
   </div>
+  <div class="register-error-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isPasswordValid()">Hasło jest wymagane (min. 8 znaków)!</div>
   <div class="login-row">
     <div class="login-label">Powtórz hasło:</div>
     <input type="password" class="form-control login-input" ng-model="vm.passwordConfirmation">
   </div>
+  <div class="register-error-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isPasswordConfirmationValid()">Powtórzenie hasła jest wymagane (min. 8 znaków)!</div>
+  <div class="register-error-container error-label" ng-show="vm.isAlreadySaveClicked && vm.isPasswordConfirmationValid() && vm.isPasswordValid() && !vm.arePasswordsTheSame()">Podane hasła się nie zgadzają!</div>
   <div>
     <button type="button" class="apollo-button apollo-button-lg apollo-button-main" ng-click="vm.onRegisterButtonClick()">Załóż konto</button>
   </div>

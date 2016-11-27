@@ -27,12 +27,13 @@
     <div class="advanced-label" ng-click="vm.changeSearchView()">Proste wyszukiwanie</div>
   </div>
   <div class="order-container">
-    <select class="form-control order-select" ng-model="vm.selectedOrderOption" ng-options="orderOption.type as orderOption.label for orderOption in vm.orderOptions"></select>
+    <select class="form-control order-select" ng-model="vm.selectedOrderDirection" ng-options="orderDirection.type as orderDirection.label for orderDirection in vm.orderDirections"></select>
+    <select class="form-control order-select mr10" ng-model="vm.selectedOrderOption" ng-options="orderOption.type as orderOption.label for orderOption in vm.orderOptions"></select>
     <div class="order-label">Sortuj po:</div>
   </div>
 </div>
 <div ng-if="!vm.isLoading && vm.albums.length > 0" class="albums-container">
-  <div ng-repeat="album in vm.albums | orderBy:vm.selectedOrderOption" class="album-tile">
+  <div ng-repeat="album in vm.albums | orderBy : vm.selectedOrderOption : vm.isDescendingOrderDirection()" class="album-tile">
     <div class="album-tile-header">
       {{album.name}}
     </div>

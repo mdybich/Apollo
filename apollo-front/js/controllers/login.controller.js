@@ -8,6 +8,8 @@
 
     vm.userName = "";
     vm.password = "";
+    vm.errorMessage = null;
+
     vm.onLoginButtonClick = onLoginButtonClick;
     vm.onExternalLoginButtonClick = onExternalLoginButtonClick;
 
@@ -16,7 +18,10 @@
         .then(function () {
           $scope.$emit("userLogged");
           $state.go(states.HOME);
-        });
+        })
+        .catch(function () {
+          vm.errorMessage = "Nazwa użytkownika i/lub hasło się nie zgadzają!";
+        })
     }
 
     function onExternalLoginButtonClick(provider) {

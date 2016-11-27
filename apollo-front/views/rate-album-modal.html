@@ -5,8 +5,8 @@
   <div class="album-label">
     {{vm.name}} - {{vm.artist}}
   </div>
-  <div></div>
   <div class="album-rating" uib-rating ng-model="vm.albumRating" max="10"></div>
+  <div class="error-label" ng-show="vm.isAlreadySaveClicked && !vm.isCorrectRating()">Wprowadź ocenę albumu!</div>
   <div class="buttons-container">
     <button type="button" class="apollo-button apollo-button-cancel apollo-button-lg cancel-button" ng-click="vm.onCancelButtonClick()">Anuluj</button>
     <button type="button" class="apollo-button apollo-button-main apollo-button-lg save-button" ng-click="vm.onSaveButtonClick()">Zapisz</button>

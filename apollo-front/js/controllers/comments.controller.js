@@ -12,20 +12,26 @@
     vm.artistName = "";
     vm.newComment = "";
     vm.isUserAuth = false;
+    vm.isAlreadySaveClicked = false;
     
     vm.onNewCommentButtonClick = onNewCommentButtonClick;
+    vm.isCommentValid = isCommentValid;
     
     function onNewCommentButtonClick() {
-      commentsService
-        .addComment(authContext.userId, vm.albumId, vm.newComment)
-        .then(function() {
-          vm.newComment = "";
-          refreshComments();
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
+      vm.isAlreadySaveClicked = true;
 
+      if (isCommentValid()) {
+        commentsService
+          .addComment(authContext.userId, vm.albumId, vm.newComment)
+          .then(function() {
+            vm.newComment = "";
+            vm.isAlreadySaveClicked = false;
+            refreshComments();
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+      }
     }
 
     function refreshComments() {
@@ -37,6 +43,10 @@
         .catch(function (error) {
           console.log(error)
         })
+    }
+
+    function isCommentValid() {
+      return vm.newComment && vm.newComment.length >= 10;
     }
 
     $scope.$on("userLoggedOut", function () {

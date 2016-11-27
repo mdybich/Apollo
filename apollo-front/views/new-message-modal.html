@@ -8,14 +8,17 @@
     </div>
     <select class="form-control message-input" ng-model="vm.selectedReceiver" ng-options="receiver.id as receiver.name for receiver in vm.receivers"></select>
   </div>
+  <div class="error-message-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isReceiverValid()">Wybierz odbiorcę!</div>
   <div class="message-modal-row">
     <div class="message-label">
       Temat:
     </div>
     <input type="text" class="form-control message-input" ng-model="vm.topic">
   </div>
+  <div class="error-message-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isTopicValid()">Wprowadź temat!</div>
   <div class="content-label">Treść:</div>
   <textarea rows="8" class="form-control content-text-area" ng-model="vm.content"></textarea>
+  <div class="error-message-content-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isContentValid()">Wprowadź treść!</div>
   <div class="buttons-container">
     <button class="apollo-button apollo-button-lg apollo-button-cancel" ng-click="vm.onCancelButtonClick()">Anuluj</button>
     <button class="apollo-button apollo-button-lg apollo-button-main" ng-click="vm.onSaveButtonClick()">Wyślij</button>

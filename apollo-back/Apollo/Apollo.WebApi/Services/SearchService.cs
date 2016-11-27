@@ -10,21 +10,33 @@ namespace Apollo.WebApi.Services
     {
         public IEnumerable<AlbumViewModel> GetTopAlbums()
         {
-            var albums =
-                _db.Ratings
-                .Where(r => r.Album.IsDeleted == false)
-                .GroupBy(r => r.Album)
-                .Select(gr => new AlbumViewModel()
+            //var albums =
+            //    _db.Ratings
+            //    .Where(r => r.Album.IsDeleted == false)
+            //    .GroupBy(r => r.Album)
+            //    .Select(gr => new AlbumViewModel()
+            //    {
+            //        Id = gr.Key.Id,
+            //        Artist = gr.Key.Artist.Name,
+            //        Duration = gr.Key.Duration,
+            //        Name = gr.Key.Name,
+            //        Style = gr.Key.Style.Name,
+            //        Year = gr.Key.Year,
+            //        TotalRating = (float)gr.ToList().Average(st => st.Rate)
+            //    })
+            //    .OrderByDescending(a => a.TotalRating);
+            var albums = 
+                _db.Albums.Where(a => a.IsDeleted == false)
+                .Select(a => new AlbumViewModel()
                 {
-                    Id = gr.Key.Id,
-                    Artist = gr.Key.Artist.Name,
-                    Duration = gr.Key.Duration,
-                    Name = gr.Key.Name,
-                    Style = gr.Key.Style.Name,
-                    Year = gr.Key.Year,
-                    TotalRating = (float)gr.ToList().Average(st => st.Rate)
-                })
-                .OrderByDescending(a => a.TotalRating);
+                    Id = a.Id,
+                    Name = a.Name,
+                    Artist = a.Artist.Name,
+                    Duration = a.Duration,
+                    Style = a.Style.Name,
+                    Year = a.Year,
+                    TotalRating = a.Ratings.Any() ? (float)a.Ratings.Average(r => r.Rate) : 0
+                });
 
             return albums;
         }

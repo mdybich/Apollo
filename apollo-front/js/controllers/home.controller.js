@@ -23,12 +23,15 @@
       ratingTo: null
     };
     vm.orderOptions = [];
+    vm.orderDirections = [];
     vm.selectedOrderOption = "totalRating";
+    vm.selectedOrderDirection = "desc";
 
 
     vm.onRateButtonClick = onRateButtonClick;
     vm.changeSearchView = changeSearchView;
     vm.onAdvancedSearchButtonClick = onAdvancedSearchButtonClick;
+    vm.isDescendingOrderDirection = isDescendingOrderDirection;
 
     function onRateButtonClick(albumId, albumName, albumArtist) {
       openRateModal(albumId, albumName, albumArtist)
@@ -61,6 +64,10 @@
         .finally(function () {
           vm.isLoading = false;
         })
+    }
+
+    function isDescendingOrderDirection() {
+      return vm.selectedOrderDirection === "desc"
     }
 
     function openRateModal(albumId, albumName, albumArtist) {
@@ -134,6 +141,13 @@
       ];
     }
 
+    function getOrderDirections() {
+      return [
+        { type: "desc", label: "Malejąco"},
+        { type: "asc", label: "Rosnąco"}
+      ];
+    }
+
     $scope.$watch(function() {
       return vm.searchText;
     }, function (newValue, oldValue) {
@@ -154,6 +168,7 @@
       loadTopAlbums();
       loadStyles();
       vm.orderOptions = getOrderOptions();
+      vm.orderDirections = getOrderDirections();
     }
 
     activate();

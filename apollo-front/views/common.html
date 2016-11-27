@@ -8,7 +8,7 @@
     <li class="item right-item" ng-if="!vm.isAuth"><a ui-sref="login" class="link" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.LOGIN)}">Logowanie</a></li>
     <li class="item right-item" ng-if="vm.isAuth" ng-click="vm.onLogoutButtonClick()"><a class="link">Wyloguj</a></li>
     <li class="item right-item" ng-if="vm.isAuth"><a class="link" ui-sref="messages" ng-class="{active: vm.isMenuActiveElement(vm.stateNames.MESSAGES)}">Wiadomości</a></li>
-    <li class="item right-item" ng-if="vm.isAuth"><div class="link read-only-link">Zalogowany jako: {{vm.firstName}} {{vm.lastName}}</div></li>
+    <li class="item right-item item-desktop-only" ng-if="vm.isAuth"><div class="link read-only-link">Zalogowany jako: {{vm.firstName}} {{vm.lastName}}</div></li>
   </ul>
 </nav>
 <div class="container"><ui-view></ui-view></div>

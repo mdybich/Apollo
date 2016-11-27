@@ -3,6 +3,9 @@
 <div class="new-comment-container" ng-if="vm.isUserAuth">
   <textarea class="form-control" rows="5" ng-model="vm.newComment"></textarea>
 </div>
+<div class="error-container error-label" ng-show="vm.isAlreadySaveClicked && !vm.isCommentValid()">
+  Komentarz musi zawierać co najmniej 10 znaków!
+</div>
 <div class="button-container" ng-if="vm.isUserAuth">
   <button class="apollo-button apollo-button-main apollo-button-lg" ng-click="vm.onNewCommentButtonClick()">Dodaj</button>
 </div>
