@@ -6,7 +6,8 @@
   function commentsService($http, apiConfig) {
     var commentsService = {
       getComments: getComments,
-      addComment: addComment
+      addComment: addComment,
+      editComment: editComment
     };
     
     return commentsService;
@@ -23,6 +24,12 @@
         albumId: albumId,
         content: content
       };
+
+      return $http.post(url, data);
+    }
+
+    function editComment(data) {
+      var url = apiConfig.baseApiUrl + "api/comment/edit";
 
       return $http.post(url, data);
     }

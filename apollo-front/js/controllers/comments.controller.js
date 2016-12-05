@@ -13,9 +13,15 @@
     vm.newComment = "";
     vm.isUserAuth = false;
     vm.isAlreadySaveClicked = false;
+    vm.isAdmin = false;
+    vm.editCommentId = null;
+    vm.editableComment = {};
     
     vm.onNewCommentButtonClick = onNewCommentButtonClick;
     vm.isCommentValid = isCommentValid;
+    vm.onEditButtonClick = onEditButtonClick;
+    vm.onCancelEditCommentButtonClick = onCancelEditCommentButtonClick;
+    vm.onSaveButtonClick = onSaveButtonClick;
     
     function onNewCommentButtonClick() {
       vm.isAlreadySaveClicked = true;
@@ -49,13 +55,60 @@
       return vm.newComment && vm.newComment.length >= 10;
     }
 
+    function onEditButtonClick(comment) {
+      vm.editCommentId = comment.id;
+      vm.editableComment = {
+        id: comment.id,
+        content: comment.content
+      }
+    }
+
     $scope.$on("userLoggedOut", function () {
       vm.isUserAuth = false;
     });
 
+    function isAdmin() {
+      var roles = authContext.userRoles;
+
+      for (var i = 0; roles.length; i++) {
+        if (roles[i] === "Admin") {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function onCancelEditCommentButtonClick() {
+      vm.editCommentId = null;
+      vm.editableComment = {};
+    }
+
+    function onSaveButtonClick() {
+      commentsService
+        .editComment(vm.editableComment)
+        .then(function() {
+          onEditCommentSuccess();
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    }
+
+    function onEditCommentSuccess() {
+      for (var i = 0; i < vm.comments.length; i++) {
+        if (vm.comments[i].id === vm.editCommentId) {
+          vm.comments[i].content = vm.editableComment.content;
+          break;
+        }
+      }
+
+      vm.editableComment = {};
+      vm.editCommentId = null;
+    }
 
     function activate() {
       vm.isUserAuth = authContext.isAuth;
+      vm.isAdmin = isAdmin();
       var data = commentsResponse.data;
       if (data) {
         vm.comments = data.comments;

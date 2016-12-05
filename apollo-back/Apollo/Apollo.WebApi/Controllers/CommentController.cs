@@ -31,5 +31,14 @@ namespace Apollo.WebApi.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route("edit")]
+        public IHttpActionResult EditComment(EditCommentViewModel vm)
+        {
+            _service.EditComment(vm);
+
+            return Ok();
+        }
     }
 }

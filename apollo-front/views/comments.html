@@ -10,7 +10,7 @@
   <button class="apollo-button apollo-button-main apollo-button-lg" ng-click="vm.onNewCommentButtonClick()">Dodaj</button>
 </div>
 <div ng-repeat="comment in vm.comments">
-  <div class="comment-container">
+  <div class="comment-container" ng-if="comment.id !== vm.editCommentId">
     <div class="comment-header">
       <div class="index-section">
         #{{vm.comments.length - $index}}
@@ -21,9 +21,19 @@
       <div class="date-section">
         {{comment.dateAdded}}
       </div>
+      <div class="button-section">
+        <button class="apollo-button apollo-button-md apollo-button-cancel" ng-if="vm.isAdmin" ng-click="vm.onEditButtonClick(comment)">Edytuj</button>
+      </div>
     </div>
     <div class="comment-body">
       {{comment.content}}
+    </div>
+  </div>
+  <div class="edit-comment-container" ng-if="comment.id === vm.editCommentId">
+    <textarea rows="3" class="form-control" ng-model="vm.editableComment.content"></textarea>
+    <div class="edit-buttons-container">
+      <button class="apollo-button apollo-button-md apollo-button-cancel" ng-click="vm.onCancelEditCommentButtonClick()">Anuluj</button>
+      <button class="apollo-button apollo-button-md apollo-button-main" ng-click="vm.onSaveButtonClick()">Zapisz</button>
     </div>
   </div>
 </div>

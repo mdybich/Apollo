@@ -56,5 +56,19 @@ namespace Apollo.WebApi.Services
 
             _db.SaveChanges();
         }
+
+        public void EditComment(EditCommentViewModel vm)
+        {
+            var comment = _db.Comments.SingleOrDefault(c => c.Id == vm.Id);
+
+            if (comment == null)
+            {
+                throw new Exception("Can not find comment to edit!");
+            }
+
+            comment.Content = vm.Content;
+
+            _db.SaveChanges();
+        }
     }
 }
