@@ -299,9 +299,6 @@ namespace Apollo.WebApi.Controllers
 
             if (provider == "Facebook")
             {
-                //You can get it from here: https://developers.facebook.com/tools/accesstoken/
-                //More about debug_tokn here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
-
                 var appToken = "582178408640492|eFF_KeZ9Cd8GNmZLBtfNsHkotbE";
                 verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}", accessToken, appToken);
             }
@@ -335,6 +332,17 @@ namespace Apollo.WebApi.Controllers
                     {
                         return null;
                     }
+                }
+                else if (provider == "Google")
+                {
+                    parsedToken.user_id = jObj["user_id"];
+                    parsedToken.app_id = jObj["audience"];
+
+                    if (!string.Equals(Startup.googleAuthOptions.ClientId, parsedToken.app_id, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return null;
+                    }
+
                 }
 
             }

@@ -1,6 +1,7 @@
 ﻿using Apollo.WebApi.Providers;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Facebook;
+using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
@@ -16,6 +17,7 @@ namespace Apollo.WebApi
     {
         public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
         public static FacebookAuthenticationOptions facebookAuthOptions { get; private set; }
+        public static GoogleOAuth2AuthenticationOptions googleAuthOptions { get; private set; }
 
         public void Configuration(IAppBuilder app)
         {
@@ -44,6 +46,15 @@ namespace Apollo.WebApi
             // Token Generation
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(OAuthBearerOptions);
+
+            googleAuthOptions = new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "969151181075-bd7rambibsa042jsis2seuqp68a5d3j7.apps.googleusercontent.com",
+                ClientSecret = "YQartfe8AWXyE-i1gCKd08mP",
+                Provider = new GoogleAuthProvider()
+            };
+
+            app.UseGoogleAuthentication(googleAuthOptions);
 
             facebookAuthOptions = new FacebookAuthenticationOptions()
             {
